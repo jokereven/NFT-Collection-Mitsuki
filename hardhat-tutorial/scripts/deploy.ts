@@ -1,18 +1,24 @@
+import dotenv from "dotenv";
 import { ethers } from "hardhat";
+import { METADATA_URL, WHITELIST_CONTRACT_ADDRESS } from "../constants";
+
+dotenv.config({ path: ".env" });
 
 async function main() {
-  const currentTimestampInSeconds = Math.round(Date.now() / 1000);
-  const ONE_YEAR_IN_SECS = 365 * 24 * 60 * 60;
-  const unlockTime = currentTimestampInSeconds + ONE_YEAR_IN_SECS;
+  const whitelistContract = WHITELIST_CONTRACT_ADDRESS;
+  const metadataURL = METADATA_URL;
 
-  const lockedAmount = ethers.utils.parseEther("1");
+  const cryptoDevsContract = await ethers.getContractFactory("CryptoDevs");
 
-  const Lock = await ethers.getContractFactory("Lock");
-  const lock = await Lock.deploy(unlockTime, { value: lockedAmount });
+  const deployedCryptoDevsContract = await cryptoDevsContract.deploy(
+    metadataURL,
+    whitelistContract
+  );
 
-  await lock.deployed();
-
-  console.log("Lock with 1 ETH deployed to:", lock.address);
+  console.log(
+    "Crypto Devs Contract Address:",
+    deployedCryptoDevsContract.address
+  );
 }
 
 // We recommend this pattern to be able to use async/await everywhere

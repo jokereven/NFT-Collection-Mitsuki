@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "deploy:goerli": "hardhat run scripts/deploy.ts --network goerli",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
