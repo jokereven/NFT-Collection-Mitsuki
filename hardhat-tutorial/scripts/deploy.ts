@@ -15,7 +15,6 @@ async function main() {
     whitelistContract
   );
 
-  // 0xd7959D7F6D1A7aABd6E72d36bf7f42C6065cC2Af
   console.log(
     "Crypto Devs Contract Address:",
     deployedCryptoDevsContract.address
